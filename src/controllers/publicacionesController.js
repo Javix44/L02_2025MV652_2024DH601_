@@ -32,7 +32,12 @@ export const createPublicacion = async (req, res, next) => {
 
 export const updatePublicacion = async (req, res, next) => {
     try {
-        const { titulo, descripcion } = req.body;
+        const { titulo, descripcion, usuario_id } = req.body;
+         const calificacionActualizada = await userService.updatePublicacion(id_publicacion, {
+                    titulo,
+                    descripcion,
+                    usuario_id
+                });
         if (!titulo && !descripcion) {
             return res.status(400).json({ message: "Debe proporcionar al menos un campo para actualizar" });
         }
