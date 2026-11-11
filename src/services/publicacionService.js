@@ -15,19 +15,18 @@ export const getPublicacionById = async (idPublicacion) => {
     return rows[0] ?? null;
 };
 
-export const createPublicacion = async ({ titulo, descripcion }) => {
-    const [[{ idPublicacion }]] = await pool.query("SELECT UUID() AS idPublicacion");
+export const createPublicacion = async (publicacion) => {
+    const { titulo, descripcion, usuario_id } = publicacion;
     await pool.query(
-        "INSERT INTO publicaciones (publicacion_id, titulo, descripcion) VALUES (?, ?, ?)",
-        [idPublicacion, titulo, descripcion || null]
+        "INSERT INTO publicaciones (titulo, descripcion, usuario_id) VALUES (?, ?, ?)",
+        [titulo, descripcion, usuario_id]
     );
-    return getPublicacionById(idPublicacion);
 };
 
-export const updatePublicacion = async (idPublicacion, { titulo, descripcion }) => {
+export const updatePublicacion = async (idPublicacion, { titulo, descripcion, usuario_id }) => {
     await pool.query(
-        "UPDATE publicaciones SET titulo = ?, descripcion = ? WHERE publicacion_id = ?",
-        [titulo, descripcion || null, idPublicacion]
+        "UPDATE publicaciones SET titulo = ?, descripcion = ? , usuario_id = ? WHERE publicacion_id = ?",
+        [titulo, descripcion || null, usuario_id, idPublicacion]
     );
     return getPublicacionById(idPublicacion);
 };

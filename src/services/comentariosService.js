@@ -35,13 +35,12 @@ export const createComentario = async (comentario) => {
          VALUES (?, ?, ?)`,
         [publicacion_id, comentariotext, usuario_id]
     );
-    return getComentarioById(idComentario);
 };
 
 export const updateComentario = async (idComentario, comentario) => {
     const { publicacion_id, comentariotext, usuario_id } = comentario;
     await pool.query(
-        `UPDATE doc_comentarios
+        `UPDATE comentarios
          SET publicacion_id = ?, comentario = ?, usuario_id = ?
          WHERE comentario_id = ?`,
         [publicacion_id, comentariotext, usuario_id, idComentario]
@@ -54,6 +53,6 @@ export const deleteComentario = async (idComentario) => {
     if (!comentario) {
         return null;
     }
-    await pool.query("DELETE FROM doc_comentarios WHERE comentario_id = ?", [idComentario]);
+    await pool.query("DELETE FROM comentarios WHERE comentario_id = ?", [idComentario]);
     return comentario;
 };

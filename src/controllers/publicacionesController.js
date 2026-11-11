@@ -21,9 +21,10 @@ export const getPublicacionById = async (req, res, next) => {
 };
 
 export const createPublicacion = async (req, res, next) => {
+    const { titulo, descripcion, usuario_id } = req.body;
     try {
-        const publicacion = await publicacionService.createPublicacion(req.body);
-        res.status(201).json(publicacion);
+        const publicacion = await publicacionService.createPublicacion({ titulo, descripcion, usuario_id });
+            res.status(201).json(publicacion);
     } catch (error) {
         next(error);
     }
@@ -31,9 +32,9 @@ export const createPublicacion = async (req, res, next) => {
 
 export const updatePublicacion = async (req, res, next) => {
     try {
-        const publicacion = await publicacionService.updatePublicacion(req.params.publicacion_id, req.body);
-        if (!publicacion) {
-            return res.status(404).json({ message: "Publicacion no encontrada" });
+        const { titulo, descripcion } = req.body;
+        if (!titulo && !descripcion) {
+            return res.status(400).json({ message: "Debe proporcionar al menos un campo para actualizar" });
         }
         res.json(publicacion);
     } catch (error) {

@@ -41,7 +41,7 @@ export const getObtenerPorPublicacion = async (req, res, next) => {
 export const postCrearComentario = async (req, res, next) => {
     const { publicacion_id, comentario, usuario_id } = req.body;
     try {
-        const nuevoComentario = await userService.postCrearComentario({ publicacion_id, comentario, usuario_id });
+        const nuevoComentario = await userService.createComentario({ publicacion_id, comentario, usuario_id });
         res.status(201).json(nuevoComentario);
     }
     catch (error) {
@@ -53,7 +53,7 @@ export const putActualizarComentario = async (req, res, next) => {
     const { id_comentario } = req.params;
     const { publicacion_id, comentario, usuario_id } = req.body;
     try {
-        const comentarioActualizado = await userService.putActualizarComentario(id_comentario, {
+        const comentarioActualizado = await userService.updateComentario(id_comentario, {
             publicacion_id,
             comentario,
             usuario_id

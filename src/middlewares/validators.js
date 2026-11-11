@@ -19,18 +19,11 @@ export const runValidations = (validations) => {
 }
 
 
-export const publicacionValidation = [
-    body("nombre")
+export const publicacionValidation1 = [
+    body("titulo")
         .trim()
         .notEmpty()
-        .withMessage("El nombre de la publicacion es obligatorio")
-        .isLength({ max: 120 })
-        .withMessage("El nombre no puede superar los 120 caracteres"),
-    body("descripcion")
-        .optional({ values: "falsy" })
-        .trim()
-        .isLength({ max: 500 })
-        .withMessage("La descripción no puede superar los 500 caracteres")
+        .withMessage("El titulo de la publicacion es obligatorio")
 ];
 
 
@@ -71,8 +64,8 @@ export const createUserValidation3 = [
 ];
 
 export const createUserValidation4 = [
-    body("descripcion")
+    body("comentario")
     .trim()
     .notEmpty()
-    .withMessage("El descripcion es obligatorio")
+    .withMessage("El comentario es obligatorio")
 ];
